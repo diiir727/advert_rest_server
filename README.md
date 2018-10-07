@@ -1,0 +1,1 @@
+Simple  rest server for advert service
