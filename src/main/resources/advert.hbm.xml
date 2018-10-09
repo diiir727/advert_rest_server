@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="ru.rest">
     <class name="ru.rest.Advert" table="adverts">
-        <id name="id" column="id" type="serial" >
+        <id name="id"  >
             <generator class="native" />
         </id>
         <property name="title" column="c_title" type="string" length="40" not-null="true"/>
