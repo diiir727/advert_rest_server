@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) {
+    static HibernateDao dao;
+    public static void main(String[] args) throws Exception {
+        dao = new HibernateDao();
         SpringApplication.run(Application.class, args);
     }
 }
