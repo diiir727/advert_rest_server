@@ -1,1 +1,1 @@
-Simple  rest server for advert service
+Rest server for advert service on SpringFramework.
