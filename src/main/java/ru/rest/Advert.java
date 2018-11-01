@@ -14,22 +14,22 @@ public class Advert {
     @Column(name = "id", columnDefinition = "serial")
     private Integer id;
 
-    @Column(name = "c_title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "c_url")
+    @Column(name = "url")
     private String url;
 
-    @Column(name = "c_sum")
+    @Column(name = "sum")
     private float sum;
 
-    @Column(name = "c_desc")
+    @Column(name = "desc")
     private String desc;
 
-    @Column(name = "c_date")
+    @Column(name = "date")
     private  Timestamp dateTime;
 
-    @Column(name = "c_img")
+    @Column(name = "img")
     private String img;
 
 

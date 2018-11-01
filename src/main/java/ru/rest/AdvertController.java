@@ -1,20 +1,42 @@
 package ru.rest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class AdvertController {
 
     @GetMapping("/advert")
-    public List<Advert> getAdvert(@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
-        if (id <= 0)
-            return Application.dao.getAllAdverts();
+    public String getAdvert(@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
+        JSONArray res = new JSONArray();
+        if (id <= 0) {
+            Application.dao.getAllAdverts().stream()
+                    .map(this::advertToJson)
+                    .forEach(res::put);
+            return res.toString();
+        }
+        res.put(advertToJson(Application.dao.getAdvert(id)));
+        return res.toString();
+    }
 
-        return Collections.singletonList(Application.dao.getAdvert(id));
+    private JSONObject advertToJson(Advert adv){
+        JSONObject obj = new JSONObject();
+        String date = adv.getDateTime().toLocalDateTime().format(DateTimeFormatter.ofPattern("Y-MM-dd h:mm"));
+        obj.put("id", adv.getId());
+        obj.put("desc", adv.getDesc());
+        obj.put("dateTime", date);
+        obj.put("sum", adv.getSum());
+        obj.put("title", adv.getTitle());
+        obj.put("img", adv.getImg());
+        obj.put("url", adv.getUrl());
+        return obj;
     }
 
     @PutMapping("/advert")
