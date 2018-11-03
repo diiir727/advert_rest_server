@@ -14,36 +14,40 @@ public class Advert {
     @Column(name = "id", columnDefinition = "serial")
     private Integer id;
 
-    @Column(name = "title")
+    @Column(name = "project_id")
+    private Integer projectId;
+
+    @Column(name = "c_title")
     private String title;
 
-    @Column(name = "url")
+    @Column(name = "c_url")
     private String url;
 
-    @Column(name = "sum")
+    @Column(name = "c_sum")
     private float sum;
 
-    @Column(name = "desc")
+    @Column(name = "c_desc")
     private String desc;
 
-    @Column(name = "date")
-    private  Timestamp dateTime;
+    @Column(name = "c_date")
+    private  Timestamp date;
 
-    @Column(name = "img")
+    @Column(name = "c_img")
     private String img;
 
 
     public Advert() {
     }
 
-    public Advert(Integer id, String title, String url, float sum, String desc, Timestamp dateTime, String img) {
+    public Advert(Integer id, Integer projectId, String title, String url, float sum, String desc, Timestamp date, String img) {
         this.id = id;
         this.title = title;
         this.url = url;
         this.sum = sum;
         this.desc = desc;
-        this.dateTime = dateTime;
+        this.date = date;
         this.img = img;
+        this.projectId = projectId;
     }
 
     public String getTitle() {
@@ -66,8 +70,8 @@ public class Advert {
         return desc;
     }
 
-    public Timestamp getDateTime() {
-        return dateTime;
+    public Timestamp getDate() {
+        return date;
     }
 
     public String getImg() {
@@ -90,12 +94,20 @@ public class Advert {
         this.desc = desc;
     }
 
-    public void setDateTime(Timestamp dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
     }
 
     @Override
@@ -104,5 +116,14 @@ public class Advert {
                 "title='" + title + '\'' +
                 ", id=" + id +
                 '}';
+    }
+
+    public void update(Advert advert) {
+        this.desc = advert.desc;
+        this.title = advert.title;
+        this.date = advert.date;
+        this.img = advert.img;
+        this.url = advert.url;
+        this.sum = advert.sum;
     }
 }
