@@ -5,13 +5,13 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class AdvertController {
+
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @GetMapping("/advert")
     public String getAdvert(@RequestParam(value = "id", required = false, defaultValue = "0") int id) {
@@ -28,7 +28,7 @@ public class AdvertController {
 
     private JSONObject advertToJson(Advert adv){
         JSONObject obj = new JSONObject();
-        String date = adv.getDateTime().toLocalDateTime().format(DateTimeFormatter.ofPattern("Y-MM-dd h:mm"));
+        String date = adv.getDate().toLocalDateTime().format(this.dateFormatter);
         obj.put("id", adv.getId());
         obj.put("desc", adv.getDesc());
         obj.put("dateTime", date);
@@ -36,6 +36,7 @@ public class AdvertController {
         obj.put("title", adv.getTitle());
         obj.put("img", adv.getImg());
         obj.put("url", adv.getUrl());
+        obj.put("project_id", adv.getProjectId());
         return obj;
     }
 
@@ -54,8 +55,8 @@ public class AdvertController {
 
             if(!timestamp.isEmpty()) {
                 try {
-                    Timestamp timestamp1 = Timestamp.valueOf(timestamp);
-                    advert.setDateTime(timestamp1);
+                    LocalDateTime tmpDateTime = LocalDateTime.parse(timestamp, this.dateFormatter);
+                    advert.setDate(Timestamp.valueOf(tmpDateTime));
                 }catch (Exception e) {
                     throw new IllegalArgumentException("not valid timestamp");
                 }
@@ -102,7 +103,7 @@ public class AdvertController {
             throw new IllegalArgumentException("not valid timestamp");
         }
         Advert adv = new Advert();
-        adv.setDateTime(timestamp1);
+        adv.setDate(timestamp1);
         adv.setTitle(title);
         adv.setSum(sum);
         adv.setDesc(desc);

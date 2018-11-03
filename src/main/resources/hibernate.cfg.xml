@@ -10,8 +10,8 @@
 
         <!-- NOTE that after automapping with IDEA property username and password will delete -->
         <!--and will be:  Initial SessionFactory failedorg.hibernate.service.spi.ServiceException: Unable to create requested service-->
-        <property name="connection.username"></property>
-        <property name="connection.password"></property>
+        <property name="connection.username">den</property>
+        <property name="connection.password">123</property>
         <!-- NOTE that after automapping with IDEA property username and password will delete -->
         <mapping class="ru.rest.Advert"/>
         <!--<mapping resource="advert.hbm.xml" />-->
